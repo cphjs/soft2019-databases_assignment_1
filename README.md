@@ -2,6 +2,8 @@
 
 This is the worst database ever
 
+You can pass the file name for the database from the command line
+
 # How to build it
 
 Clone repo

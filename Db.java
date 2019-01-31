@@ -1,7 +1,9 @@
 import java.io.Closeable;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +22,10 @@ public class Db implements Closeable {
     }
     
     public void open() throws IOException {
+        File f = new File(fileName);
+        if (!f.exists()) {
+            return;
+        }
         try (FileInputStream in = new FileInputStream(fileName)) {
             int keyLen = -1;
             while ((keyLen = in.read()) != -1) {
@@ -39,7 +45,11 @@ public class Db implements Closeable {
     }
     
     public void set(String key, String value) throws IOException {
-        try (FileOutputStream out = new FileOutputStream(fileName, true)) {
+        File f = new File(fileName);
+        if (!f.exists()) {
+            f.createNewFile();
+        }
+        try (FileOutputStream out = new FileOutputStream(f, true)) {
             byte[] keyBytes = key.getBytes(encoding);
             byte[] valueBytes = value.getBytes(encoding);
             out.write(keyBytes.length);

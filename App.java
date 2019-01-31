@@ -8,6 +8,9 @@ public class App {
     
     public static void main(String[] args) {
         String file = "thing.db";
+        if (args.length > 0) {
+            file = args[0];
+        }
         try (Db db = new Db(file)) {
             db.open();
             System.out.println("Created database file: " + file);
