@@ -20,6 +20,7 @@ public class App {
             System.out.println(db);
 
             System.out.println("Re-reading database file");
+            System.out.println(db);
             db.close();
             db.open();
             
